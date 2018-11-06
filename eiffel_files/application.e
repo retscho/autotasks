@@ -22,16 +22,32 @@ feature {NONE} -- Initialization
 
 
 	make
-		do
-			create topo_sort_object_1.make
-			create list_of_topo_sort_objects.make(0)
+	do
+		create topo_sort_object_1.make -- init default TSO
+		create list_of_topo_sort_objects.make(0) -- init list of TSO
+		create_new_topological_sort_object -- this call creates another TSO
 
-		end
+	end
 
 	create_new_topological_sort_object
-		do
-			topo_sort_object_1 := create topo_sort_object_1.make
-		end
+		-- creates new TSO (3.1.015)
+	local
+		new_object : TOPO_SORT_OBJECT -- local variable declaration
+	do
+		create new_object.make
+	end
+
+	delete_topological_sort_object (to_delete: TOPO_SORT_OBJECT)
+		-- deletes the TSO (3.1.016)
+	do
+
+	end
+
+	list_all_topological_sort_objects
+		-- Lists all TSO (3.1.017)
+	do
+
+	end
 
 end
 
