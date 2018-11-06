@@ -32,8 +32,8 @@ feature -- Initialization
 	local
 		new_elem: ELEMENT
 	do
-		--new_elem.make
-		--new_elem.set_value(input)
+		create new_elem.make
+		new_elem.set_value(input)
 	end
 
 	add_element (elem: ELEMENT)
