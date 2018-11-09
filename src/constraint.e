@@ -21,7 +21,7 @@ feature
 	elem_1: ELEMENT
 	elem_2: ELEMENT
 
-	set_values (input_1, input_2: ELEMENT)
+	set_constraint (input_1, input_2: ELEMENT)
 			-- set the contraint
 		do
 			elem_1 := input_1
