@@ -103,9 +103,9 @@ feature -- Initialization
 		end
 
 	display_graph
-			-- displays the graph (via GraphViz)
+			-- displays the graph (via GraphViz) (3.1.009, 3.1.011, 3.1.012)
 		do
-			
+
 		end
 
 end

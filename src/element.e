@@ -20,14 +20,14 @@ feature
 			print ("new element created%N")
 		end
 
-	set_value (input: ANY)
+	set_element (input: ANY)
 			-- set the value of element
 		do
 			value := input
 			print ("new value set%N")
 		end
 
-	print_value
+	print_element
 			-- print the value of element
 		do
 			print (value.out + "%N")
