@@ -1,5 +1,5 @@
 note
-	description: "Summary description for {ELEMENT}."
+	description: "Basic low-level methods for ELEMENTS."
 	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
@@ -15,21 +15,23 @@ feature
 	value: ANY
 
 	make
-	do
-		value := -1 -- Initialize every elem to -1 at the beginning
-		print ("new element created%N")
-	end
+		do
+			value := -1 -- Initialize every elem to -1 at the beginning
+			print ("new element created%N")
+		end
 
 	set_value (input: ANY)
-	do
-		value := input
-		print ("new value set%N")
-	end
+			-- set the value of element
+		do
+			value := input
+			print ("new value set%N")
+		end
 
 	print_value
-	do
-		print (value.out + "%N")
-	end
+			-- print the value of element
+		do
+			print (value.out + "%N")
+		end
 
 
 end
