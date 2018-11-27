@@ -31,6 +31,10 @@ feature {NONE} -- Initialization
 
 			cons1 : CONSTRAINT
 			cons2 : CONSTRAINT
+
+			some_elements : ARRAYED_LIST [ELEMENT]
+			some_constraints : ARRAYED_LIST [CONSTRAINT]
+
 		do
 			create list_of_topo_sort_objects.make(0) -- init list of TSO
 			first := create_new_topo_sort_object -- creating 3 TSO for testing
@@ -68,7 +72,16 @@ feature {NONE} -- Initialization
 			first.remove_constraint (cons2) -- remove constraint from first TSO
 			first.show_all_constraints -- print out all constraints
 
+			create some_elements.make(0)
 
+			across 1 |..| 5 as i loop -- creating 5 elements and add them to array 'some_elements'
+				create temp_elem.make
+				some_elements.extend (temp_elem)
+			end
+
+			first.add_multiple_elements (some_elements)
+
+			first.show_all_elements
 
 		end
 

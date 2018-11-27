@@ -108,7 +108,12 @@ feature -- Initialization
 
 	add_multiple_elements (list: ARRAYED_LIST [ELEMENT])
 			-- Add multiple elements to the list of elements (3.1.005)
+		require
+			list /= void and list.count >= 1
 		do
+			across list as cursor loop
+				add_element(cursor.item)
+			end
 
 		end
 
