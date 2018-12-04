@@ -1,4 +1,4 @@
-note
+(note
 	description: "Handles all manipulations to a {TOPO_SORT_OBJECT} object."
 	author: ""
 	date: "$Date$"
@@ -104,13 +104,6 @@ feature -- Initialization
 		ensure
 			list_of_constraints.count = old list_of_constraints.count - 1
 		end
-
-
-	add_multiple_elements (list: ARRAYED_LIST [ELEMENT])
-			-- Add multiple elements to the list of elements (3.1.005)
-		require
-			list /= void and list.count >= 1
-		do
 			across list as cursor loop
 				add_element(cursor.item)
 			end
@@ -178,8 +171,28 @@ feature -- Initialization
 
 	display_graph
 			-- displays the graph (via GraphViz) (3.1.009, 3.1.011, 3.1.012)
-		do
+	local
+		solution: STRING
+	do
+		create solution.make_empty
 
-		end
+		across elements as cursor
+			loop
+
+				--print(cursor.item.out)
+				solution.append_string(cursor.item.out)
+				solution.append("->")
+			end
+			solution.remove_tail (2)
+
+	    create dotfile.make_open_write("topsortgv.dot")
+	    dotfile.put_string("digraph G {"+solution +";}")
+
+	    {EXECUTION_ENVIRONMENT}.launch("dot -Tpng -otopsort.png topsortgv.dot")
+	    {EXECUTION_ENVIRONMENT}.launch("xdg-open topsort.png")
+	    print("Topological Graph has been created!")
+	    end
+	  	dotfile: PLAIN_TEXT_FILE
+	end
 
 end
