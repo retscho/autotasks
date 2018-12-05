@@ -14,8 +14,8 @@ create
 
 feature {NONE} -- Initialization
 
-	-- all topo sort objects are stored in this list:
-	list_of_topo_sort_objects: ARRAYED_LIST [TOPO_SORT_OBJECT]
+
+	list_of_topo_sort_objects: ARRAYED_LIST [TOPO_SORT_OBJECT] -- all topo sort objects are stored in this list:
 
 	make
 		local
@@ -31,57 +31,38 @@ feature {NONE} -- Initialization
 
 			cons1 : CONSTRAINT
 			cons2 : CONSTRAINT
+			cons3 : CONSTRAINT
+			cons4 : CONSTRAINT
 
 			some_elements : ARRAYED_LIST [ELEMENT]
-			some_constraints : ARRAYED_LIST [CONSTRAINT]
+			--some_constraints : ARRAYED_LIST [CONSTRAINT]
 
+-- ############################ DEMO OF TOPOLOGICAL SORT ######################################
 		do
 			create list_of_topo_sort_objects.make(0) -- init list of TSO
-			first := create_new_topo_sort_object -- creating 3 TSO for testing
-			second := create_new_topo_sort_object
-			third := create_new_topo_sort_object
+			first := create_new_topo_sort_object -- creating TSO object
 
-			list_all_topo_sort_objects -- print out all TSO
-
-			delete_topo_sort_object(second) -- delete second TSO
-
-			list_all_topo_sort_objects -- print out all remaining TSO
-
-			create elem1.make -- creating 4 elements
-			create elem2.make
-			create elem3.make
-			create elem4.make
+			create elem1.make("Arbeiten") -- creating 4 elements
+			create elem2.make("Abendessen")
+			create elem3.make("Aufstehen")
+			create elem4.make("Mittagessen")
 
 			first.add_element (elem1) -- adding elements to first TSO
 			first.add_element (elem2)
 			first.add_element (elem3)
 			first.add_element (elem4)
 
-			first.show_all_elements -- print out all elements
-
-			first.remove_element (elem4) -- deleting elem4 from first TSO
-			first.show_all_elements -- print out all elements
-
-			create cons1.set_constraint (elem1, elem2) -- create 2 constraints
+			create cons1.set_constraint (elem3, elem1) -- create constraints
 			create cons2.set_constraint (elem3, elem2)
+			create cons3.set_constraint (elem3, elem4)
+			create cons4.set_constraint (elem4, elem2)
+
 			first.add_constraint (cons1) -- add constraints to first TSO
 			first.add_constraint (cons2)
+			first.add_constraint (cons3)
+			first.add_constraint (cons4)
 
-			first.show_all_constraints -- print out all constraints
-
-			first.remove_constraint (cons2) -- remove constraint from first TSO
-			first.show_all_constraints -- print out all constraints
-
-			create some_elements.make(0)
-
-			across 1 |..| 5 as i loop -- creating 5 elements and add them to array 'some_elements'
-				create temp_elem.make
-				some_elements.extend (temp_elem)
-			end
-
-			first.add_multiple_elements (some_elements)
-
-			first.show_all_elements
+			first.do_whole_process -- whole process of sorting happens here!
 
 		end
 
@@ -95,7 +76,7 @@ feature {NONE} -- Initialization
 			create temp.make
 			Result := temp
 			list_of_topo_sort_objects.extend(temp)
-			print("%N successfully created new TSO%N")
+		--	print("%N successfully created new TSO%N")
 		ensure
 			list_of_topo_sort_objects.count = old list_of_topo_sort_objects.count + 1
 		end
@@ -106,7 +87,6 @@ feature {NONE} -- Initialization
 		require
 			not list_of_topo_sort_objects.is_empty
 		local
-			i : INTEGER
 			index_to_delete : INTEGER
 		do
 			across list_of_topo_sort_objects as cursor loop

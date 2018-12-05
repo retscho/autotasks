@@ -22,7 +22,7 @@ feature
 		do
 			elem_1 := input_1
 			elem_2 := input_2
-			print ("new constraint values set%N")
+		--	print ("new constraint values set%N")
 		ensure
 			elem_1 = input_1
 			elem_2 = input_2
