@@ -27,12 +27,14 @@ feature {NONE} -- Initialization
 			elem2 : ELEMENT
 			elem3 : ELEMENT
 			elem4 : ELEMENT
+			elem5 : ELEMENT
 			temp_elem : ELEMENT
 
 			cons1 : CONSTRAINT
 			cons2 : CONSTRAINT
 			cons3 : CONSTRAINT
 			cons4 : CONSTRAINT
+			cons5 : CONSTRAINT
 
 			some_elements : ARRAYED_LIST [ELEMENT]
 			--some_constraints : ARRAYED_LIST [CONSTRAINT]
@@ -42,25 +44,29 @@ feature {NONE} -- Initialization
 			create list_of_topo_sort_objects.make(0) -- init list of TSO
 			first := create_new_topo_sort_object -- creating TSO object
 
-			create elem1.make("Arbeiten") -- creating 4 elements
+			create elem1.make("Arbeiten") -- creating 5 elements
 			create elem2.make("Abendessen")
 			create elem3.make("Aufstehen")
+			create elem5.make("Zocken")
 			create elem4.make("Mittagessen")
 
 			first.add_element (elem1) -- adding elements to first TSO
 			first.add_element (elem2)
 			first.add_element (elem3)
 			first.add_element (elem4)
+			first.add_element (elem5)
 
-			create cons1.set_constraint (elem3, elem1) -- create constraints
+			create cons1.set_constraint (elem5, elem1) -- create constraints
 			create cons2.set_constraint (elem3, elem2)
 			create cons3.set_constraint (elem3, elem4)
 			create cons4.set_constraint (elem4, elem2)
+			create cons5.set_constraint (elem1, elem5)
 
 			first.add_constraint (cons1) -- add constraints to first TSO
 			first.add_constraint (cons2)
 			first.add_constraint (cons3)
 			first.add_constraint (cons4)
+			first.add_constraint (cons5)
 
 			first.do_whole_process -- whole process of sorting happens here!
 
