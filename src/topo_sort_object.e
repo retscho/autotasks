@@ -343,8 +343,8 @@ feature -- Initialization
 
 	   	dotfile.put_string("digraph G {"+solution +";}")
 
-	    {EXECUTION_ENVIRONMENT}.launch("dot -Tpng -otopsort.png topsortgv.dot")
 	    {EXECUTION_ENVIRONMENT}.launch("xdg-open topsort.png")
+	    {EXECUTION_ENVIRONMENT}.launch("dot -Tpng -otopsort.png topsortgv.dot")
 	  	 print("Topological Graph has been created!")
 	  	 end
 	 	dotfile: PLAIN_TEXT_FILE
