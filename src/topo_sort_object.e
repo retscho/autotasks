@@ -18,17 +18,20 @@ feature -- Initialization
 
 -- THE VARIABLES HERE ARE USED FOR ELEMENT <-> INTEGER MAPPING AND META-STUFF.
 	sorted_elements: ARRAYED_LIST [ELEMENT] -- in here will be the resulting sorted list
+	cycled_elements: ARRAYED_LIST [ELEMENT] -- in here will be the cycled elements
 	key_to_element_mapper: HASH_TABLE [ELEMENT, INTEGER] -- using integers as key to map corresponding element
 	element_string_to_key_mapper: HASH_TABLE [INTEGER, STRING] -- using value of the elements as key to map to the corresponding integer.
 
 
 -- THE VARIABLES HERE ARE USED FOR THE ACTUAL SORTING ALGORITHM BY RETO.	
 	sorted_integers: ARRAYED_LIST [INTEGER] -- this is the result of the sorting of the mapped integers
+	cycled_integers: ARRAYED_LIST[INTEGER] -- list with mapped integers of the elements in a cycle
 	candidates: LINKED_QUEUE [INTEGER] -- queue with all candidates
 	successor: HASH_TABLE [LINKED_LIST[INTEGER], INTEGER] -- successor hash_table
 	pred_count: HASH_TABLE [INTEGER, INTEGER] -- pred_count for every element
 	freed: INTEGER
 	next: INTEGER
+	cycle_detector: BOOLEAN
 
 	make
 			-- Run application.
@@ -38,10 +41,12 @@ feature -- Initialization
 			create list_of_constraints.make(0) -- init (empty) list
 
 			create sorted_elements.make (0)
+			create cycled_elements.make (0)
 			create key_to_element_mapper.make (3)
 			create element_string_to_key_mapper.make (3)
 
 			create sorted_integers.make (0)
+			create cycled_integers.make (0)
 			create candidates.make
 			create successor.make (3)
 			create pred_count.make (3)
@@ -171,6 +176,9 @@ feature -- Initialization
 			create linked_list_of_next.make
 			sorted_integers.wipe_out -- clearing previous results.
 			sorted_elements.wipe_out
+			cycled_integers.wipe_out
+
+			cycle_detector := FALSE
 
 			from -- sorting loop
 
@@ -197,6 +205,25 @@ feature -- Initialization
 					linked_list.wipe_out
 				end
 			end
+
+			across pred_count as cursor loop -- detect cycles and and list cycled elements
+				if cursor.item /= 0 then
+					cycle_detector := TRUE
+					cycled_integers.extend (cursor.key)
+				end
+			end
+
+			if cycle_detector = TRUE then
+				print("%NCYCLE DETECTED! %N%NCYCLED ELEMENTS: ")
+				across cycled_integers as cursor loop
+					if attached key_to_element_mapper.at (cursor.item) as element then
+						cycled_elements.extend (element)
+						print(element.value.out + ", ")
+					end
+				end
+			end
+			print("%N%N")
+
 			print("%NSORTING COMPLETE: %N%NSOLUTION: ")
 			across sorted_integers as cursor loop
 				if attached key_to_element_mapper.at (cursor.item) as element then
@@ -246,7 +273,7 @@ feature -- Initialization
 				ind := element_string_to_key_mapper[cursor.item.elem_1.value.out]
 
 				pred_count[dep] := pred_count[dep] + 1 	-- increasing pred_count
-				if attached successor.at (ind) as linked_list then		-- unnötige shizzle wege attached..	
+				if attached successor.at (ind) as linked_list then		-- unnÃ¶tige shizzle wege attached..	
 					linked_list.extend (dep)			-- extending successor	
 				end
 			end
