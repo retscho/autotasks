@@ -45,6 +45,7 @@ feature -- Initialization
 			create candidates.make
 			create successor.make (3)
 			create pred_count.make (3)
+			create dotfile.make_open_write("topsortgv.dot")
 
 		end
 
@@ -303,22 +304,22 @@ feature -- Initialization
 	do
 		create solution.make_empty
 
-		across list_of_elements as cursor
+		across sorted_elements as cursor
 			loop
 
 				--print(cursor.item.out)
-				solution.append_string(cursor.item.out)
+				solution.append_string(cursor.item.value.out)
 				solution.append("->")
 			end
 			solution.remove_tail (2)
 
---	   	create dotfile.make_open_write("topsortgv.dot")
---	   	dotfile.put_string("digraph G {"+solution +";}")
 
---	    {EXECUTION_ENVIRONMENT}.launch("dot -Tpng -otopsort.png topsortgv.dot")
---	    {EXECUTION_ENVIRONMENT}.launch("xdg-open topsort.png")
---	  	 print("Topological Graph has been created!")
+	   	dotfile.put_string("digraph G {"+solution +";}")
+
+	    {EXECUTION_ENVIRONMENT}.launch("dot -Tpng -otopsort.png topsortgv.dot")
+	    {EXECUTION_ENVIRONMENT}.launch("xdg-open topsort.png")
+	  	 print("Topological Graph has been created!")
 	  	 end
---	 	dotfile: PLAIN_TEXT_FILE
+	 	dotfile: PLAIN_TEXT_FILE
 
 end

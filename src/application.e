@@ -63,7 +63,7 @@ feature {NONE} -- Initialization
 			first.add_constraint (cons4)
 
 			first.do_whole_process -- whole process of sorting happens here!
-
+			first.display_graph
 		end
 
 	create_new_topo_sort_object : TOPO_SORT_OBJECT
