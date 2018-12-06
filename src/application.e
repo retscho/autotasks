@@ -28,7 +28,9 @@ feature {NONE} -- Initialization
 			elem3 : ELEMENT
 			elem4 : ELEMENT
 			elem5 : ELEMENT
+
 			temp_elem : ELEMENT
+			i : INTEGER
 
 			cons1 : CONSTRAINT
 			cons2 : CONSTRAINT
@@ -70,6 +72,16 @@ feature {NONE} -- Initialization
 
 			first.do_whole_process -- whole process of sorting happens here!
 			first.display_graph
+
+--			from
+--			    i := 0
+--			until
+--			    i >= 10
+--			loop
+--			    create temp_elem.make(i)
+--			    print(temp_elem)
+--			    i := i + 1
+--			end
 		end
 
 	create_new_topo_sort_object : TOPO_SORT_OBJECT
