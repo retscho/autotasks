@@ -21,7 +21,7 @@ feature
 --			print ("%Nnew element created%N")
 --		end
 
-	make (input: ANY)
+	make (input: STRING)
 			-- set the value of element
 		require
 			input /= void

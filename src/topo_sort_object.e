@@ -55,7 +55,7 @@ feature -- Initialization
 		end
 
 
-	create_new_element (input: ANY) : ELEMENT
+	create_new_element (input: STRING) : ELEMENT
 			-- create and returns new ELEMENT object
 		local
 			new_elem: ELEMENT
