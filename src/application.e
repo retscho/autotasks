@@ -12,7 +12,7 @@ inherit
 create
 	make
 
-feature {NONE} -- Initialization
+feature -- Initialization
 
 
 	list_of_topo_sort_objects: ARRAYED_LIST [TOPO_SORT_OBJECT] -- all topo sort objects are stored in this list:
