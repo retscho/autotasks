@@ -8,14 +8,32 @@ note
 	testing: "type/manual"
 
 class
-	TEST_ELEMENTS
+	TEST_DO_WHOLE_PROCESS
 
 inherit
 	EQA_TEST_SET
+		redefine
+			on_prepare,
+			on_clean
+		end
+
+feature {NONE} -- Events
+
+	on_prepare
+			-- <Precursor>
+		do
+			assert ("not_implemented", False)
+		end
+
+	on_clean
+			-- <Precursor>
+		do
+			assert ("not_implemented", False)
+		end
 
 feature -- Test routines
 
-	test_create_new_topo_sort_objectsdkfhsdjk
+	test_insert_here
 			-- New test routine
 		do
 			assert ("not_implemented", False)
