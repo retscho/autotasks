@@ -19,24 +19,30 @@ inherit
 
 feature {NONE} -- Events
 
+	a : APPLICATION
+	tso : TOPO_SORT_OBJECT
+
 	on_prepare
 			-- <Precursor>
 		do
-			assert ("not_implemented", False)
+			create a.make
+			create tso.make
+			--assert ("not_implemented", False)
 		end
 
 	on_clean
 			-- <Precursor>
 		do
-			assert ("not_implemented", False)
+			--assert ("not_implemented", False)
 		end
 
 feature -- Test routines
 
-	test_insert_here
+	test_create_tso
 			-- New test routine
 		do
-			assert ("not_implemented", False)
+			tso := a.create_new_topo_sort_object
+			assert ("always true", True)
 		end
 
 end
