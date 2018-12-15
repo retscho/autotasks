@@ -15,12 +15,6 @@ feature
 	value: ANY
 
 
---	make
---		do
---			value := "default" -- Initialize every elem to -1 at the beginning
---			print ("%Nnew element created%N")
---		end
-
 	make (input: STRING)
 			-- set the value of element
 		require

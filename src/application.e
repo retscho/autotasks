@@ -70,6 +70,8 @@ feature -- Initialization
 			first.add_constraint (cons4)
 			first.add_constraint (cons5)
 
+
+
 			first.do_whole_process -- whole process of sorting happens here!
 			first.display_graph
 

@@ -19,24 +19,50 @@ inherit
 
 feature {NONE} -- Events
 
+
+a: APPLICATION
+tso: TOPO_SORT_OBJECT
+elem1: ELEMENT
+elem2: ELEMENT
+cons1: CONSTRAINT
+cons2: CONSTRAINT
+some_constraints: ARRAYED_LIST [CONSTRAINT]
+
 	on_prepare
-			-- <Precursor>
+
 		do
-			assert ("not_implemented", False)
+			create a.make
+			create tso.make
+			create elem1.make ("A")
+			create elem2.make ("B")
+			create cons1.set_constraint (elem1, elem2)
+			create cons2.set_constraint (elem2, elem1)
+			create some_constraints.make (0)
+			tso.add_element (elem1)
+			tso.add_element (elem2)
+			some_constraints.extend (cons1)
+			some_constraints.extend (cons2)
 		end
 
+
+
 	on_clean
-			-- <Precursor>
+
 		do
-			assert ("not_implemented", False)
+			tso.remove_constraint (cons1)
+			tso.remove_constraint (cons2)
 		end
 
 feature -- Test routines
 
-	test_insert_here
-			-- New test routine
+	add_multiple_constraints  --3.1.006_01
 		do
-			assert ("not_implemented", False)
+			tso.add_multiple_constraints (some_constraints)
+			if tso.list_of_constraints.count = 2 then
+				assert("pass", True)
+			else
+				assert("Error", False)
+			end
 		end
 
 end

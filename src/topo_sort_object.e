@@ -80,7 +80,7 @@ feature -- Initialization
 	add_constraint (cons: CONSTRAINT)
 			-- Add a constraint to the list of constraints (3.1.002)
 		require
-			list_of_constraints.extendible and not list_of_constraints.has(cons)
+			list_of_constraints.extendible and not list_of_constraints.has(cons) and cons.elem_1.value /= cons.elem_2.value
 		do
 			list_of_constraints.extend(cons)
 		ensure
@@ -91,7 +91,7 @@ feature -- Initialization
 	remove_element (to_delete: ELEMENT)
 			-- Remove an element from the list of element (3.1.003)
 		require
-			not list_of_elements.is_empty and to_delete /= void
+			not list_of_elements.is_empty and to_delete /= void and list_of_elements.has (to_delete)
 		local
 			index_to_delete : INTEGER
 		do
@@ -114,7 +114,7 @@ feature -- Initialization
 	remove_constraint (to_delete: CONSTRAINT)
 			-- Remove a constraint from the list of constraints (3.1.004)
 		require
-			not list_of_constraints.is_empty and to_delete /= void
+			not list_of_constraints.is_empty and to_delete /= void and list_of_constraints.has (to_delete)
 		local
 			index_to_delete : INTEGER
 		do
@@ -156,15 +156,23 @@ feature -- Initialization
 
 	remove_multiple_elements (list: ARRAYED_LIST [ELEMENT])
 			-- Remove multiple elements from the list of elements (3.1.007)
+		require
+			list /= void and list.count >= 1
 		do
-
+			across list as cursor loop
+				remove_element (cursor.item)
+			end
 		end
 
 
 	remove_multiple_constraints (list: ARRAYED_LIST [CONSTRAINT])
 			-- Remove multiple constraints from the list of constraints (3.1.008)
+		require
+			list /= void and list.count >= 1
 		do
-
+			across list as cursor loop
+				remove_constraint (cursor.item)
+			end
 		end
 
 -- ###########################################################################################################

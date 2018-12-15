@@ -19,24 +19,42 @@ inherit
 
 feature {NONE} -- Events
 
+a: APPLICATION
+tso: TOPO_SORT_OBJECT
+elem1: ELEMENT
+elem2: ELEMENT
+some_elements : ARRAYED_LIST [ELEMENT]
+
 	on_prepare
 			-- <Precursor>
 		do
-			assert ("not_implemented", False)
+			create a.make
+			create tso.make
+			create elem1.make ("A")
+			create elem2.make ("B")
+			create some_elements.make (0)
+			some_elements.extend (elem1)
+			some_elements.extend (elem2)
+
 		end
 
 	on_clean
 			-- <Precursor>
 		do
-			assert ("not_implemented", False)
+			tso.remove_element (elem1)
+			tso.remove_element (elem2)
 		end
 
 feature -- Test routines
 
-	test_insert_here
-			-- New test routine
+	add_multiple_elements --3.1.005_01
 		do
-			assert ("not_implemented", False)
+			tso.add_multiple_elements (some_elements)
+			if tso.list_of_elements.count = 2 then
+				assert("pass", True)
+			else
+				assert("Error", False)
+			end
 		end
 
 end

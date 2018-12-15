@@ -13,30 +13,38 @@ class
 inherit
 	EQA_TEST_SET
 		redefine
-			on_prepare,
-			on_clean
+			on_prepare
 		end
 
 feature {NONE} -- Events
 
+a: APPLICATION
+tso: TOPO_SORT_OBJECT
+elem1: ELEMENT
+elem2: ELEMENT
+
+
+
 	on_prepare
 			-- <Precursor>
 		do
-			assert ("not_implemented", False)
+			create a.make
+			create tso.make
+			create elem1.make ("A")
+			create elem2.make ("B")
 		end
 
-	on_clean
-			-- <Precursor>
-		do
-			assert ("not_implemented", False)
-		end
 
 feature -- Test routines
 
-	test_insert_here
+	set_constraint_test
 			-- New test routine
+		local
+			cons: CONSTRAINT
 		do
-			assert ("not_implemented", False)
+			create cons.set_constraint (elem1, elem2)
+			
+			assert ("pass", True)
 		end
 
 end

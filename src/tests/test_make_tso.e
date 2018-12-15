@@ -13,8 +13,7 @@ class
 inherit
 	EQA_TEST_SET
 		redefine
-			on_prepare,
-			on_clean
+			on_prepare
 		end
 
 feature {NONE} -- Events
@@ -27,14 +26,9 @@ feature {NONE} -- Events
 		do
 			create a.make
 			create tso.make
-			--assert ("not_implemented", False)
+
 		end
 
-	on_clean
-			-- <Precursor>
-		do
-			--assert ("not_implemented", False)
-		end
 
 feature -- Test routines
 
